@@ -1,7 +1,7 @@
 #### 1. Module Pattern:
   - Groups related code into reusable modules that can be imported into other parts of the application.
   - Promotes code organization, reusability, and separation of concerns.
-#### 2. Factory Pattern: [Read More](./?o=5243355831176506#notebook/2986793530519430/command/2986793530519431)
+#### 2. Factory Pattern: [Read More](./FactoryPattern.md)
  - Creates objects without exposing the creation logic to the client.
  - Useful for creating complex objects or providing different object types based on input.
 ####  3. Singleton Pattern:
