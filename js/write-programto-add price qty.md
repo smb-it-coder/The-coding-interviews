@@ -2,6 +2,8 @@ Sure, here's an example of how you can create a `Product` class and a `Cart` cla
 
 ```javascript
 // Product class
+
+/****
 class Product {
     constructor(name, price, quantity) {
         this.name = name;
@@ -14,6 +16,63 @@ class Product {
         return this.price * this.quantity;
     }
 }
+
+***/
+
+// Product class
+class Product {
+    constructor(name, quantity, price) {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    // Getter for product name
+    getName() {
+        return this.name;
+    }
+
+    // Setter for product name
+    setName(name) {
+        this.name = name;
+    }
+
+    // Getter for product quantity
+    getQuantity() {
+        return this.quantity;
+    }
+
+    // Setter for product quantity
+    setQuantity(quantity) {
+        this.quantity = quantity;
+    }
+
+    // Getter for product price
+    getPrice() {
+        return this.price;
+    }
+
+    // Setter for product price
+    setPrice(price) {
+        this.price = price;
+    }
+}
+
+// Usage example:
+
+// Create a new product
+const laptop = new Product('Laptop', 1, 1200);
+
+// Get product details
+console.log(`Product: ${laptop.getName()}, Quantity: ${laptop.getQuantity()}, Price: $${laptop.getPrice().toFixed(2)}`);
+
+// Update product details
+laptop.setQuantity(2);
+laptop.setPrice(1300);
+
+// Get updated product details
+console.log(`Updated Product: ${laptop.getName()}, Quantity: ${laptop.getQuantity()}, Price: $${laptop.getPrice().toFixed(2)}`);
+
 
 // Cart class
 class Cart {
