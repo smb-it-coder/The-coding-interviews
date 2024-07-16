@@ -1,4 +1,6 @@
-Redux is a predictable state container for JavaScript applications, primarily used with libraries like React or Angular for managing application state. It follows the principles of Flux, but with a more streamlined approach, focusing on three main principles or "pillars": **Single Source of Truth**, **State is Read-Only**, and **Changes are Made with Pure Functions**.
+Redux is a predictable state container for JavaScript applications, primarily used with libraries like React or Angular for managing application state. It follows the principles of Flux, but with a more streamlined approach, focusing on three main principles or "pillars": - **Single Source of Truth**,
+- **State is Read-Only**, 
+- **Changes are Made with Pure Functions**.
 
 ### 1. Single Source of Truth
 
