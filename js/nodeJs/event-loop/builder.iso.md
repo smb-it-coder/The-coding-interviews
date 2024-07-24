@@ -1,0 +1,1 @@
+https://www.builder.io/blog/visual-guide-to-nodejs-event-loop
