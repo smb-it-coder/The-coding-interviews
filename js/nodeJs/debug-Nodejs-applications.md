@@ -32,3 +32,25 @@ The best approach often involves a combination of techniques and tools. Here's a
 * **Use profilers for performance issues:** If your application is slow or unresponsive, profilers can pinpoint performance bottlenecks for optimization.
 
 By effectively combining these techniques and tools, you can efficiently debug your Node.js applications and ensure they function as expected.
+
+
+
+const assert = require('assert');
+
+function addNumbers(x, y) {
+  // Simulate a potential error where addition is not performed correctly
+  if (x === 5) {
+    return 'Invalid Input';  // Returning a string instead of a number
+  }
+  return x + y;
+}
+
+// Test case 1: Valid input, assertion should pass
+const result1 = addNumbers(3, 4);
+assert.equal(result1, 7, "Function should return the sum of x and y");
+
+// Test case 2: Invalid input, assertion should fail
+const result2 = addNumbers(5, 2);  // This will trigger the error condition
+assert.equal(result2, 7, "Function should return the sum of x and y (This assertion will fail)");
+
+console.log("All assertions passed!");  // This line won't be reached if the second assertion fails
