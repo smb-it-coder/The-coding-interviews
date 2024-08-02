@@ -203,3 +203,120 @@ db.Employees.aggregate([
         "subordinates" : []
     }
 }
+
+
+
+
+## Mysql Query 
+
+
+-- create
+CREATE TABLE EMPLOYEE (
+  empId INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  dept TEXT NOT NULL,
+  manager_id INTEGER,
+  FOREIGN KEY (manager_id) REFERENCES EMPLOYEE(empId)
+);
+
+
+-- insert
+INSERT INTO EMPLOYEE VALUES (0001, 'Clark', 'Sales', NULL);
+INSERT INTO EMPLOYEE VALUES (0002, 'Dave', 'Accounting',0001);
+INSERT INTO EMPLOYEE VALUES (0003, 'Ava', 'Sales', 0002);
+INSERT INTO EMPLOYEE VALUES (0004, 'Ava kti', 'Sales', 0002);
+INSERT INTO EMPLOYEE VALUES (0005, 'Kripa Singh', 'It', 0001);
+INSERT INTO EMPLOYEE VALUES (0006, 'Kripa Singh Pandeya', 'It', 0005);
+
+
+Select * from EMPLOYEE;
+
+WITH RECURSIVE EmployeeHierarchy AS (
+    -- Anchor member: Start with the CTO
+    SELECT empId, name, manager_id
+    FROM EMPLOYEE
+    WHERE name = 'Clark' -- Replace 'CTO' with the actual name or criteria
+
+    UNION ALL
+
+    -- Recursive member: Find employees who report to the current level
+    SELECT e.empId, e.name, e.manager_id
+    FROM EMPLOYEE e
+    INNER JOIN EmployeeHierarchy eh ON e.manager_id = eh.empId
+)
+SELECT * FROM EmployeeHierarchy;
+
+
+
+
+
+
+WITH RECURSIVE EmployeeHierarchy AS (
+    -- Anchor member: Start with the employee named 'Clark'
+    SELECT 
+        e.empId,
+        e.name AS employee_name,
+        e.manager_id,
+        m.name AS manager_name
+    FROM EMPLOYEE e
+    LEFT JOIN EMPLOYEE m ON e.manager_id = m.empId
+    WHERE e.name = 'Clark'  -- Replace 'Clark' with the actual starting employee name or criteria
+
+    UNION ALL
+
+    -- Recursive member: Find employees who report to the current level
+    SELECT 
+        e.empId,
+        e.name AS employee_name,
+        e.manager_id,
+        m.name AS manager_name
+    FROM EMPLOYEE e
+    INNER JOIN EmployeeHierarchy eh ON e.manager_id = eh.empId
+    LEFT JOIN EMPLOYEE m ON e.manager_id = m.empId
+)
+SELECT 
+    empId,
+    employee_name,
+    manager_id,
+    manager_name
+FROM EmployeeHierarchy;
+
+### OUTPUT
+
+Output:
+
++-------+---------------------+------------+------------+
+| empId | name                | dept       | manager_id |
++-------+---------------------+------------+------------+
+|     1 | Clark               | Sales      |       NULL |
+|     2 | Dave                | Accounting |          1 |
+|     3 | Ava                 | Sales      |          2 |
+|     4 | Ava kti             | Sales      |          2 |
+|     5 | Kripa Singh         | It         |          1 |
+|     6 | Kripa Singh Pandeya | It         |          5 |
++-------+---------------------+------------+------------+
++-------+---------------------+------------+
+| empId | name                | manager_id |
++-------+---------------------+------------+
+|     1 | Clark               |       NULL |
+|     2 | Dave                |          1 |
+|     5 | Kripa Singh         |          1 |
+|     3 | Ava                 |          2 |
+|     4 | Ava kti             |          2 |
+|     6 | Kripa Singh Pandeya |          5 |
++-------+---------------------+------------+
++-------+---------------------+------------+--------------+
+| empId | employee_name       | manager_id | manager_name |
++-------+---------------------+------------+--------------+
+|     1 | Clark               |       NULL | NULL         |
+|     2 | Dave                |          1 | Clark        |
+|     5 | Kripa Singh         |          1 | Clark        |
+|     3 | Ava                 |          2 | Dave         |
+|     4 | Ava kti             |          2 | Dave         |
+|     6 | Kripa Singh Pandeya |          5 | Kripa Singh  |
++-------+---------------------+------------+--------------+
+
+
+
+
+
