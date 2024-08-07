@@ -236,20 +236,13 @@ WITH RECURSIVE EmployeeHierarchy AS (
     SELECT empId, name, manager_id
     FROM EMPLOYEE
     WHERE name = 'Clark' -- Replace 'CTO' with the actual name or criteria
-
     UNION ALL
-
     -- Recursive member: Find employees who report to the current level
     SELECT e.empId, e.name, e.manager_id
     FROM EMPLOYEE e
     INNER JOIN EmployeeHierarchy eh ON e.manager_id = eh.empId
 )
 SELECT * FROM EmployeeHierarchy;
-
-
-
-
-
 
 WITH RECURSIVE EmployeeHierarchy AS (
     -- Anchor member: Start with the employee named 'Clark'
