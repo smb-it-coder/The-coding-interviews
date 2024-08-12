@@ -3,8 +3,8 @@
 
 
 db.Persons.aggregate([
-
 // match document based criteria condition
+
 {
     $match: {  "eyeColor" : "green"}
  },
